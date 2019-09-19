@@ -8,6 +8,9 @@ const styles = {
 };
 
 class App extends Component {
+  state = {
+    FontSize: 16
+  };
   render() {
     let styleNames = ["bold", "italic", "underline"];
     let colors = ["yellow", "blue", "red", "black", "purple"];
@@ -15,7 +18,7 @@ class App extends Component {
     let stylingBoxes = styleNames.map(style => {
       return (
         <button
-          className="btn btn-primary   m-2"
+          className="MyButton   m-2"
           style={styles[style]}
           key={style}
           onClick={() => ChangeStyle(style)}
@@ -60,17 +63,36 @@ class App extends Component {
       }
     }
 
+    let ChangeFontSize = Size => {
+      console.log(Size);
+      this.setState({ FontSize: Size });
+      let text = document.getElementById("text");
+
+      text.style.fontSize = Size + "px";
+    };
     return (
       <div className="App">
         <div className="my-3">{stylingBoxes}</div>
-
+        Font Size{" "}
+        <input
+          type="text"
+          id="exampleForm2"
+          class="form-control"
+          style={{
+            height: "20px",
+            width: "50px",
+            margin: "auto",
+            marginBottom: "50px"
+          }}
+          value={this.state.FontSize}
+          onChange={event => ChangeFontSize(event.target.value)}
+        />
         <div
           class="MyTextArea "
-          contenteditable="true"
+          contentEditable="true"
           id="text"
           style={{ margin: "auto" }}
         ></div>
-
         <div className="my-3">{colorBoxes}</div>
       </div>
     );
