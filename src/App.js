@@ -14,7 +14,13 @@ class App extends Component {
 
     let stylingBoxes = styleNames.map(style => {
       return (
-        <button style={styles[style]} key={style}>
+        <button
+          className="btn btn-primary   m-2"
+          style={styles[style]}
+          key={style}
+          onClick={() => ChangeStyle(style)}
+          id={style}
+        >
           {style}
         </button>
       );
@@ -23,16 +29,48 @@ class App extends Component {
     let colorBoxes = colors.map(color => {
       return (
         <button
-          style={{ backgroundColor: color, height: 30, width: 30 }}
+          className="m-1"
+          style={{
+            backgroundColor: color,
+            height: 30,
+            width: 30,
+            border: "2px solid black"
+          }}
           key={color}
+          onClick={() => ChangeColor(color)}
         />
       );
     });
+    function ChangeColor(color) {
+      let text = document.getElementById("text");
+      text.style.color = color;
+    }
+    function ChangeStyle(style) {
+      let button = document.getElementById(style);
+      button.classList.toggle("activated");
+
+      let text = document.getElementById("text");
+      if (style == "bold") {
+        text.style.fontWeight = text.style.fontWeight == "" ? style : "";
+      } else if (style == "underline") {
+        text.style.textDecoration =
+          text.style.textDecoration == "" ? style : "";
+      } else {
+        text.style.fontStyle = text.style.fontStyle == "" ? style : "";
+      }
+    }
 
     return (
       <div className="App">
         <div className="my-3">{stylingBoxes}</div>
-        <textarea />
+
+        <div
+          class="MyTextArea "
+          contenteditable="true"
+          id="text"
+          style={{ margin: "auto" }}
+        ></div>
+
         <div className="my-3">{colorBoxes}</div>
       </div>
     );
